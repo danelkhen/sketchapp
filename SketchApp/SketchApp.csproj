@@ -63,7 +63,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="index.css" />
     <Content Include="index.html" />
+    <Content Include="index.js" />
+    <Content Include="lib\jquery-2.1.1.min.js" />
+    <Content Include="utils.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

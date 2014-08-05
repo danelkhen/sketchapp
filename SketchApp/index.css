@@ -1,0 +1,41 @@
+﻿svg
+{
+    /*border:solid 1px gray;*/
+}
+path,rect,circle{
+    fill:white;
+    stroke:black;
+}
+
+.Room{
+    fill:#F2D6AB;
+}
+
+.Wall
+{
+	stroke-width:10px;
+}
+
+.OuterWall
+{
+	stroke-width:25px;
+}
+
+.Selected {
+    stroke:red;
+    stroke-width:3px;
+}
+
+image.Selected
+{
+    outline:auto;
+}
+
+.FoldoutSofa
+{
+    fill:gray;
+}
+.FoldoutSofaOpened
+{
+    fill:transparent;
+}

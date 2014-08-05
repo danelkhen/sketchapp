@@ -1,9 +1,18 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title></title>
+    <title>Sketch</title>
+    <link href="index.css" rel="stylesheet" />
+    <script src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="utils.js"></script>
+    <script src="index.js"></script>
 </head>
 <body>
-
+    <svg id="svg" height="1500" width="1000">
+        <g class="Element" transform="translate(300 300)">
+            <rect class="ElementObject" width="200" height="100" fill="none" stroke="black" transform="rotate(320)"/>
+            <text class="ElementLabel" fill="red" x="50" y="50">Hello</text>
+        </g>
+    </svg>
 </body>
 </html>
