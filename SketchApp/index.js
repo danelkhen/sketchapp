@@ -110,16 +110,15 @@ function main(el) {
         el.setAttribute("transform", "rotate(" + deg + " " + pos.x + " " + pos.y + ")");
         onChanged();
     }
-    function getTransform(el, type)
-    {
-        var type2 = SVGTransform["SVG_TRANSFORM_"+type.toUpperCase()];
-        return Array.prototype.filter.call(el.transform.baseVal, function(t){return t.type==type2;});
+    function getTransform(el, type) {
+        var type2 = SVGTransform["SVG_TRANSFORM_" + type.toUpperCase()];
+        return Array.prototype.filter.call(el.transform.baseVal, function (t) { return t.type == type2; })[0];
     }
     function getPos(el) {
-        var matrix = getTransform(el, "translate");
-        if(matrix==null)
+        var t = getTransform(el, "translate");
+        if (t == null)
             return null;
-        return {x:matrix.e, y:matrix.f};
+        return { x: t.matrix.e, y: t.matrix.f };
         if (el.nodeName == "path") {
             var d = el.getAttribute("d");
             var dd = d.substr(1).split(" ");
@@ -139,22 +138,25 @@ function main(el) {
         return { x: x, y: y };
     }
     function setPos(el, pos) {
-        if (el.nodeName == "path") {
-            var d = el.getAttribute("d");
-            var index = d.indexOf(" ", d.indexOf(" ") + 1);
-            d = "M" + pos.x + " " + pos.y + " " + d.substr(index);
-            el.setAttribute("d", d)
-        }
-        else if (el.nodeName == "circle") {
-            el.setAttribute("cx", pos.x);
-            el.setAttribute("cy", pos.y);
+        var trn = getTransform(el, "translate");
+        trn.setTranslate(pos.x, pos.y);
 
-        }
-        else {
-            el.setAttribute("x", pos.x);
-            el.setAttribute("y", pos.y);
-        }
-        setRotation(el, getRotation(el));
+        //if (el.nodeName == "path") {
+        //    var d = el.getAttribute("d");
+        //    var index = d.indexOf(" ", d.indexOf(" ") + 1);
+        //    d = "M" + pos.x + " " + pos.y + " " + d.substr(index);
+        //    el.setAttribute("d", d)
+        //}
+        //else if (el.nodeName == "circle") {
+        //    el.setAttribute("cx", pos.x);
+        //    el.setAttribute("cy", pos.y);
+
+        //}
+        //else {
+        //    el.setAttribute("x", pos.x);
+        //    el.setAttribute("y", pos.y);
+        //}
+        //setRotation(el, getRotation(el));
         onChanged();
     }
 
@@ -178,7 +180,7 @@ function main(el) {
         if (_selectedEl != null)
             _selectedEl.classList.remove("Selected");
         _selectedEl = el;
-        if(_selectedEl==null)
+        if (_selectedEl == null)
             return;
         _selectedEl.classList.add("Selected");
     }
@@ -187,7 +189,7 @@ function main(el) {
         $("#Code").text(html);
     }
     _element.mousedown(function (e) {
-        if(!$(e.target).is(".ElementObject"))
+        if (!$(e.target).is(".ElementObject"))
             return;
         selectElement($(e.target).closest(".Element")[0]);
     });
