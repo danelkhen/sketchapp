@@ -65,7 +65,7 @@ function main(el) {
         deg += 45;
         if (deg == 360)
             deg = 0;
-        el.setAttribute("transform", "rotate(" + deg + " " + pos.x + " " + pos.y + ")");
+        setRotation(el, deg);
     }
 
     function getKeyBindingKey(e) {
@@ -96,7 +96,7 @@ function main(el) {
     });
 
     function getRotation(el) {
-        var t = el.getAttribute("transform");
+        var t = $(el).find(".ElementObject")[0].getAttribute("transform");
         var deg = 0;
         if (t != null) {
             var deg2 = t.substr(t.indexOf("rotate(") + "rotate(".length, t.indexOf(")"));
@@ -106,8 +106,7 @@ function main(el) {
         return deg;
     }
     function setRotation(el, deg) {
-        var pos = getPos(el);
-        el.setAttribute("transform", "rotate(" + deg + " " + pos.x + " " + pos.y + ")");
+        $(el).find(".ElementObject")[0].setAttribute("transform", "rotate(" + deg+")");
         onChanged();
     }
     function getTransform(el, type) {
@@ -119,44 +118,11 @@ function main(el) {
         if (t == null)
             return null;
         return { x: t.matrix.e, y: t.matrix.f };
-        if (el.nodeName == "path") {
-            var d = el.getAttribute("d");
-            var dd = d.substr(1).split(" ");
-
-            var x = parseInt(dd[0]);
-            var y = parseInt(dd[1]);
-            return { x: x, y: y };
-        }
-        else if (el.nodeName == "circle") {
-            var x = parseInt(el.getAttribute("cx"));
-            var y = parseInt(el.getAttribute("cy"));
-            return { x: x, y: y };
-
-        }
-        var x = parseInt(el.getAttribute("x"));
-        var y = parseInt(el.getAttribute("y"));
-        return { x: x, y: y };
     }
+
     function setPos(el, pos) {
         var trn = getTransform(el, "translate");
         trn.setTranslate(pos.x, pos.y);
-
-        //if (el.nodeName == "path") {
-        //    var d = el.getAttribute("d");
-        //    var index = d.indexOf(" ", d.indexOf(" ") + 1);
-        //    d = "M" + pos.x + " " + pos.y + " " + d.substr(index);
-        //    el.setAttribute("d", d)
-        //}
-        //else if (el.nodeName == "circle") {
-        //    el.setAttribute("cx", pos.x);
-        //    el.setAttribute("cy", pos.y);
-
-        //}
-        //else {
-        //    el.setAttribute("x", pos.x);
-        //    el.setAttribute("y", pos.y);
-        //}
-        //setRotation(el, getRotation(el));
         onChanged();
     }
 
